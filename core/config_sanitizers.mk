@@ -377,3 +377,11 @@ ifneq ($(my_sanitize_diag),)
     endif
   endif
 endif
+
+ifneq ($(findstring fsanitize,$(my_cflags)),)
+  ifneq ($(findstring integer,$(my_cflags)),)
+    ifeq ($(findstring sanitize=implicit-integer-sign-change,$(my_cflags)),)
+      my_cflags += -fno-sanitize=implicit-integer-sign-change
+    endif
+  endif
+endif
